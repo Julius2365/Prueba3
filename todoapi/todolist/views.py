@@ -1,48 +1,29 @@
-from rest_framework.response import Response
-from rest_framework.views import APIView
-from rest_framework.response import Response
-from .serializers import PostSerializers
-from .models import Post
-from rest_framework import status
-from django.http import Http404
+from django.shortcuts import render
+from django.http import HttpResponse
+from .models import Item
 
+# Vista para la página de inicio
 
-class Post_APIView(APIView):
-    def get(self, request, format=None, *args, **kwargs):
-        post = Post.objects.all()
-        serializer = PostSerializers(post, many=True)
+def index(request):
+    items = Item.objects.all()  # Obtén todos los items de la base de datos
+    return render(request, 'index.html', {'items': items})
 
-        return Response(serializer.data)
+# Vista para crear un nuevo item
+def crear_item(request):
+    # Aquí puedes manejar la lógica para crear un nuevo item
+    return HttpResponse("Página para crear un nuevo item")
 
-    def post(self, request, format=None):
-        serializer = PostSerializers(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+# Vista para ver detalles de un item por su ID
+def ver_item(request, item_id):
+    item = Item.objects.get(pk=item_id)  # Obtén el item por su ID desde la base de datos
+    return render(request, 'ver_item.html', {'item': item})
 
+# Vista para editar un item por su ID
+def editar_item(request, item_id):
+    # Aquí puedes manejar la lógica para editar un item existente
+    return HttpResponse(f"Página para editar el item con ID {item_id}")
 
-class Post_APIView_Detail(APIView):
-    def get_object(self, pk):
-        try:
-            return Post.objects.get(pk=pk)
-        except Post.DoesNotExist:
-            raise Http404
-
-    def get(self, request, pk, format=None):
-        post = self.get_object(pk)
-        serializer = PostSerializers(post)
-        return Response(serializer.data)
-
-    def put(self, request, pk, format=None):
-        post = self.get_object(pk)
-        serializer = PostSerializers(post, data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-    def delete(self, request, pk, format=None):
-        post = self.get_object(pk)
-        post.delete()
-        return Response(status=status.HTTP_204_NO_CONTENT)
+# Vista para eliminar un item por su ID
+def eliminar_item(request, item_id):
+    # Aquí puedes manejar la lógica para eliminar un item existente
+    return HttpResponse(f"Página para eliminar el item con ID {item_id}")

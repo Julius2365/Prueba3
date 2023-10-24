@@ -1,24 +1,23 @@
 from django.urls import path
-from .views import *
-from django.http import JsonResponse
-from django.views.decorators.csrf import csrf_exempt
-from django.views import  View
+from . import views
+from django.urls import reverse
 
 app_name = 'todolist'
-class LibroAPI(View):
-    def post(self, request, *args, **kwargs):
-        # Obtén los datos JSON de la solicitud POST
-        datos = json.loads(request.body)
-
-        # Aquí puedes manejar los datos, por ejemplo, guardarlos en la base de datos
-
-        # Devuelve una respuesta JSON indicando que el libro ha sido creado
-        return JsonResponse({"mensaje": "Libro creado exitosamente!"})
-
+# Define un espacio de nombres para evitar conflictos de nombres de URL en diferentes aplicaciones
 
 urlpatterns = [
-    # Otras rutas de tu aplicación...
-    path('api/libros/', csrf_exempt(LibroAPI.as_view()), name='libro-api'),
-    path('v1/post', Post_APIView.as_view()),
-    path('v1/post/<int:pk>/', Post_APIView_Detail.as_view()),
+    # Vista para la página de inicio
+    path('', views.index, name='index'),
+
+    # Vista para crear un nuevo item
+    path('crear/', views.crear_item, name='crear-item'),
+
+    # Vista para ver detalles de un item por su ID
+    path('item/<int:item_id>/', views.ver_item, name='ver-item'),
+
+    # Vista para editar un item por su ID
+    path('item/<int:item_id>/editar/', views.editar_item, name='editar-item'),
+
+    # Vista para eliminar un item por su ID
+    path('item/<int:item_id>/eliminar/', views.eliminar_item, name='eliminar-item'),
 ]
