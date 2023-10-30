@@ -8,11 +8,11 @@
     <h1>Lista de Items</h1>
     <ul>
         {% for item in items %}
-            <li><a href="{% url 'ver-item' item.id %}">{{ item.nombre }}</a></li>
+            <li><a href="{% url 'ver_item' item.id %}">{{ item.nombre }}</a></li>
         {% empty %}
             <li>No hay items disponibles.</li>
         {% endfor %}
     </ul>
-    <a href="{% url 'crear-item' %}">Crear un Nuevo Item</a>
+    <a href="{% url 'crear_item' %}">Crear un Nuevo Item</a>
 </body>
 </html>

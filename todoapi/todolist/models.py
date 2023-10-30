@@ -7,4 +7,3 @@ class Item(models.Model):
 
     def __str__(self):
         return self.nombre  # Representación en cadena del objeto, muestra el nombre del item en la administración de Django
-

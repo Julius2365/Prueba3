@@ -1,0 +1,17 @@
+<!-- en crear_item.html -->
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>Crear Item</title>
+</head>
+<body>
+    <h1>Crear un Nuevo Item</h1>
+    <form method="post" action="">
+
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" /> Guardar</button>
+    </form>
+</body>
+</html>
