@@ -2,17 +2,17 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Lista de Items</title>
+    <title>Lista de Libros</title>
 </head>
 <body>
-    <h1>Lista de Items</h1>
+    <h1>Lista de Libros</h1>
     <ul>
         {% for item in items %}
             <li><a href="{% url 'ver_item' item.id %}">{{ item.nombre }}</a></li>
         {% empty %}
-            <li>No hay items disponibles.</li>
+            <li>No Hay Lista De Libros Disponibles.</li>
         {% endfor %}
     </ul>
-    <a href="{% url 'crear_item' %}">Crear un Nuevo Item</a>
+    <a href="{% url 'crear_item' %}">Crear Nueva Descripción</a>
 </body>
 </html>

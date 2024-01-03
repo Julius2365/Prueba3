@@ -6,10 +6,10 @@
 </head>
 <body>
     <h1>{{ item.nombre }}</h1>
-    <p>Descripción: {{ item.descripcion }}</p>
+    <p>Autor: {{ item.autor }}</p>
     <p>Precio: {{ item.precio }}</p>
-    <a href="{% url 'editar_item' item.id %}">Editar Item</a>
-    <a href="{% url 'eliminar_item' item.id %}">Eliminar Item</a>
+    <a href="{% url 'editar_item' item.id %}">Editar Información</a>
+    <a href="{% url 'eliminar_item' item.id %}">Eliminar Descripción</a>
     <a href="{% url 'index' %}">Volver a la Lista</a>
 </body>
 </html>

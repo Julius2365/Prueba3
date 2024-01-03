@@ -28,7 +28,7 @@ def ver_item(request, item_id):
     try:
         item = Item.objects.get(pk=item_id)
     except Item.DoesNotExist:
-        raise Http404("El item no existe")  # Puedes personalizar este mensaje según tus necesidades
+        raise Http404("El libro no esta registrado")  # Puedes personalizar este mensaje según tus necesidades
     return render(request, 'ver_item.html', {'item': item})
 # Vista para editar un item por su ID
 def editar_item(request,item_id):
