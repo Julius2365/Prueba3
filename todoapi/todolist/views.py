@@ -3,6 +3,7 @@ from django.http import HttpResponse , Http404
 from .models import Item
 from .forms import ItemForm
 
+
 # Vista para la página de inicio
 
 def index(request):
@@ -59,3 +60,5 @@ def eliminar_item(request, item_id):
     item = Item.objects.get(pk=item_id)
     item.delete()
     return redirect('index')
+def DataTables(request,item):
+    return render(request,'DataTables.html')
