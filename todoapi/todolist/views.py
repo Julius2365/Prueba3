@@ -4,6 +4,7 @@ from .models import Item
 from .forms import ItemForm
 
 
+
 # Vista para la página de inicio
 
 def index(request):

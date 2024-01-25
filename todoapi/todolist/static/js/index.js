@@ -1,3 +1,17 @@
+let ver_item;
+let ver_ItemIsInitialized = false;
+
+const ver_itemOptions = {
+        columnDefs: [
+        { className: "centered", targets: [0, 1, 2, 3, 4, 5, 6] },
+        { orderable: false, targets: [5, 6] },
+        { searchable: false, targets: [0, 5, 6] }
+    ],
+    pageLength: 4,
+    destroy: true
+
+};
+
 const listLibros = async () => {
     try {
         const response = await fetch('http://127.0.0.1:8000/');
@@ -7,11 +21,15 @@ const listLibros = async () => {
         data.Libros.forEach((libro, index) => {
             content += `
                 <tr>
-                    <td>${index}</td>
+                    <td>${index+1}</td>
                     <td>${libro.precio}</td>
                     <td>${libro.autor}</td>
-                </tr>
-            `;
+                    <td>${libro.score}</td>
+                    <td>${libro.score >=8
+                        ? "<i class='fa-solid fa-check' style='color: green;'></i>" 
+                        : "<i class='fa-solid fa-xmark' style='color: red;'></i>"}
+                    }</td>
+                </tr>`;
         });
 
         tableBody_todolist_item.innerHTML = content;
@@ -21,5 +39,5 @@ const listLibros = async () => {
 };
 
 window.addEventListener('load', async () => {
-    await listLibros();
+    await initver_item();
 });
