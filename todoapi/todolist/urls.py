@@ -21,5 +21,4 @@ urlpatterns = [
     # Vista para eliminar un item por su ID
     path('item/<int:item_id>/eliminar/', views.eliminar_item, name='eliminar_item'),
 
-    path('datatable/', views.DataTables, name='datatable')
 ]
