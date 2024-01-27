@@ -1,15 +1,22 @@
-from django.shortcuts import render,redirect
-from django.http import HttpResponse , Http404
+from django.shortcuts import render, redirect
+from django.http import HttpResponse, Http404
 from .models import Item
 from .forms import ItemForm
-
+from django.http.response import JsonResponse
 
 
 # Vista para la página de inicio
 
 def index(request):
     items = Item.objects.all()  # Obtén todos los items de la base de datos
+    libros=list(Item.objects.values())
+    data={'libros':libros}
+
+    if request.headers.get('x-requested-with')=='XMLHttpRequest':
+        return JsonResponse(data,safe=False)
     return render(request, 'index.html', {'items': items})
+
+
 
 # Vista para crear un nuevo item
 def crear_item(request):
@@ -23,7 +30,8 @@ def crear_item(request):
     else:
         form = ItemForm()
 
-    return render(request, 'crear_item.html',{'form':form})
+    return render(request, 'crear_item.html', {'form': form})
+
 
 # Vista para ver detalles de un item por su ID
 def ver_item(request, item_id):
@@ -32,8 +40,10 @@ def ver_item(request, item_id):
     except Item.DoesNotExist:
         raise Http404("El libro no esta registrado")  # Puedes personalizar este mensaje según tus necesidades
     return render(request, 'ver_item.html', {'item': item})
+
+
 # Vista para editar un item por su ID
-def editar_item(request,item_id):
+def editar_item(request, item_id):
     if item_id:
         # Edición de un producto existente
         item = Item.objects.get(pk=item_id)
@@ -54,7 +64,8 @@ def editar_item(request,item_id):
         else:
             form = ItemForm()
 
-    return render(request, 'editar_item.html',{'form':form})
+    return render(request, 'editar_item.html', {'form': form})
+
 
 # Vista para eliminar un item por su ID
 def eliminar_item(request, item_id):
